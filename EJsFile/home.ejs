@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <title>HomePage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .blog-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .card-title {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #333;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    <div class="main-container">
+        <% if (locals.User) { %>
+        <div class="profile-container">
+            <div class="profile-form">
+                <form action="/uploads" method="post" enctype="multipart/form-data">
+                    <label for="ProfileImage">Upload Your Profile Image</label><br>
+                    <input type="file" name="ProfileImage" id="ProfileImage" /><br><br>
+                    <button type="submit" class="btn">Upload</button>
+                </form>
+            </div>
+            <div class="profile-image-container">
+                <img
+                    src="<%= User.ProfileImageUrl %>"
+                    alt="Profile Image"
+                    class="profile-image"
+                />
+            </div>
+        </div>
+        <% } %>
+        <div class="blog-cards">
+            <% if (locals.AllBlogs) { %> <% AllBlogs.forEach(Document => { %>
+            <div class="card">
+                <img
+                    src="<%= Document.CoverImageUrl %>"
+                    class="card-img-top"
+                    alt="Cover Image"
+                />
+                <div class="card-body">
+                    <h5 class="card-title"><%= Document.title %></h5>
+                    <a href="/blog/<%= Document._id %>" class="btn">Read</a>
+                </div>
+            </div>
+            <% }) %> <% } %>
+        </div>
+    </div>
+    <%- include("./partials/script") %>
+</body>
+</html>

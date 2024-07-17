@@ -1,0 +1,12 @@
+.try {
+  background-color: red;
+}
+body{
+    background-image: url("/images/back.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+    /* font-weight: bolder; */
+}
