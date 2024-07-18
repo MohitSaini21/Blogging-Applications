@@ -39,6 +39,7 @@ const storage = multer.diskStorage({
   },
 });
 
+
 const UploadingProfileImage = multer({ storage: storage });
 
 const PORT = process.env.PORT || 8000;
@@ -97,6 +98,7 @@ app.post(
 );
 
 // Connectin the mongoDb
+// let me remind you bro that connect functions return a promise
 connect(process.env.MONGO_URL).then((value) => {
   console.log("Mngodb has been connected");
   app.listen(PORT, () => {
